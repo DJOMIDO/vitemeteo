@@ -91,7 +91,7 @@ defineProps({
                         <p class="whitespace-nowrap text-md">
                             {{ new Date(hour.time).toLocaleTimeString("fr", { hour: '2-digit' }) }}
                         </p>
-                        <img class="w-auto h-[50px] object-cover" :src="hour.condition.icon" alt="icon" />
+                        <img class="w-auto h-auto object-cover" :src="hour.condition.icon" alt="icon" />
                         <p class="text-xl">
                             {{ Math.round(hour.temp_c) }}&deg;
                         </p>
@@ -103,8 +103,8 @@ defineProps({
         <!-- This is the flex container for the 10-day forecast -->
         <div class="max-w-screen-md w-full mx-auto px-6">
             <div class="text-white text-center">
-                <h2 class="mb-4 text-xl">Prévisions sur 10 jours</h2>
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+                <h2 class="mb-4 text-xl">Prévisions sur 3 jours</h2>
+                <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-4 mx-auto">
                     <div v-for="(day, index) in place.forecast.forecastday" :key="index"
                         class="flex flex-col items-center p-4 bg-weather-primary rounded-md">
                         <p class="text-lg font-bold">
@@ -113,7 +113,7 @@ defineProps({
                                     'short'
                             }) }}
                         </p>
-                        <img class="w-auto h-[50px] object-cover" :src="day.day.condition.icon" alt="icon" />
+                        <img class="w-auto h-auto object-cover" :src="day.day.condition.icon" alt="icon" />
                         <p class="text-md">
                             {{ Math.round(day.day.maxtemp_c) }}&deg; / {{ Math.round(day.day.mintemp_c) }}&deg;
                         </p>
