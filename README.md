@@ -1,27 +1,67 @@
-# Vue 3 + Vite
+# 🛰️ ViteMétéo – Weather Forecast App (Vue 3 + Vite)
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+ViteMétéo is a lightweight weather forecast app built with **Vue 3**, **Vite**, and the [WeatherAPI.com](https://www.weatherapi.com) API. It allows users to search cities and view:
 
-## Recommended IDE Setup
+- 🏙️ Location info
+- 🌡️ Current temperature & condition
+- ☀️ Sunrise & 🌙 Sunset times
+- 🕐 Hourly forecast (scrollable)
+- 📅 3-day forecast (grid layout)
 
-- [VS Code](https://code.visualstudio.com/) + [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (previously Volar) and disable Vetur
+## ✨ Features
 
-![Full Size Image](src/assets/fullsize.png)
+- 🔍 City search with auto-complete
+- 📡 Real-time weather data (in French)
+- 🧩 Modular component structure (after full `WeatherInfo.vue` refactor)
+- 🧼 Clean UI powered by Tailwind CSS
+- 📱 Fully responsive layout
 
-## Project Setup
+## 🛠 Recommended IDE Setup
 
-```sh
+- [VS Code](https://code.visualstudio.com/)
+- Extension: [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
+- Disable: Vetur (if installed)
+
+## 🖼️ UI Preview
+
+![Full Size Screenshot](src/assets/fullsize.png)
+
+## 🚀 Project Setup
+
+Install dependencies:
+
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Run development server:
 
-```sh
+```bash
 npm run dev
 ```
 
-### Compile and Minify for Production
+Build for production:
 
-```sh
+```bash
 npm run build
+```
+
+## 🔐 Environment Variables
+
+Create a `.env` file with the following:
+
+```env
+VITE_WEATHER_API_KEY=your_api_key_here
+```
+
+> ✅ You can get your key from [weatherapi.com](https://www.weatherapi.com).  
+> 🌍 The app uses French (`lang=fr`) for all descriptions.
+
+## 🌐 Deployment (e.g. Netlify)
+
+For static hosting, add the environment variable to your build config:
+
+```bash
+# Netlify → Site Settings → Environment Variables
+VITE_WEATHER_API_KEY=your_api_key
 ```
