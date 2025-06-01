@@ -1,6 +1,8 @@
 <script setup>
 import { reactive } from "vue" // Import the reactive function from Vue
 
+const apiKey = import.meta.env.VITE_WEATHER_API_KEY // Get the API key from the environment variables
+
 const emit = defineEmits(["place-data"]) // Define the emit function
 
 const searchTerm = reactive({ // Create a reactive object
@@ -24,7 +26,7 @@ const handleSearch = () => {
             const response = await fetch(
 
             // This is the API endpoint for the search
-                `https://api.weatherapi.com/v1/search.json?key=d68e43ce95c948a993094609242905&q=${searchTerm.query}`
+                `https://api.weatherapi.com/v1/search.json?key=${apiKey}&q=${searchTerm.query}`
 
             )
 
@@ -49,7 +51,7 @@ const getWeather = async (id) => {
 
     const response = await fetch( // Fetch the weather data for the place
 
-        `https://api.weatherapi.com/v1/forecast.json?key=d68e43ce95c948a993094609242905&q=id:${id}&days=10&aqi=no&alerts=no&lang=fr`
+        `https://api.weatherapi.com/v1/forecast.json?key=${apiKey}&q=id:${id}&days=10&aqi=no&alerts=no&lang=fr`
 
     )
 
