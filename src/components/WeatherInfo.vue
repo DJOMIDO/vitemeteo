@@ -16,6 +16,6 @@ const emit = defineEmits(['remove-place'])
         <HourlyForecast :hours="place.forecast.forecastday[0].hour" />
         <ThreeDayForecast :days="place.forecast.forecastday" />
         <RemoveButton :lastUpdated="place.current.last_updated" :locationName="place.location.name"
-            @remove-place="emit('remove-place')" />
+            @remove-place="(name) => emit('remove-place', name)" />
     </div>
 </template>
