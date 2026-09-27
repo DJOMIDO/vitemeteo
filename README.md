@@ -1,67 +1,55 @@
-# 🛰️ ViteMétéo – Weather Forecast App (Vue 3 + Vite)
+# ViteMétéo
 
-ViteMétéo is a lightweight weather forecast app built with **Vue 3**, **Vite**, and the [WeatherAPI.com](https://www.weatherapi.com) API. It allows users to search cities and view:
+Une application météo Vue 3 pensée pour consulter plusieurs villes rapidement. Le projet utilise Vite, Vue 3 et [Open-Meteo](https://open-meteo.com/) : aucune clé API n’est nécessaire pour un usage personnel ou non commercial.
 
-- 🏙️ Location info
-- 🌡️ Current temperature & condition
-- ☀️ Sunrise & 🌙 Sunset times
-- 🕐 Hourly forecast (scrollable)
-- 📅 3-day forecast (grid layout)
+## Fonctionnalités
 
-## ✨ Features
+- Recherche de villes avec géocodage et résultats accessibles au clavier
+- Météo actuelle, ressenti, humidité, vent et précipitations
+- Prévisions horaires sur 24 heures et prévisions quotidiennes sur 10 jours
+- Conditions météo représentées par des icônes vectorielles/emoji nettes, indépendantes du fournisseur
+- Géolocalisation du navigateur
+- Plusieurs villes, suppression, actualisation et restauration via `localStorage`
+- Bascule Celsius / Fahrenheit
+- Mode clair / sombre avec préférence persistante
+- Interface disponible en français, anglais et chinois
+- Vue multi-villes : la ville active reste détaillée, les autres deviennent des cartes compactes cliquables
+- États de chargement, d’erreur, de recherche vide et de première visite
+- Interface responsive, contraste renforcé et prise en charge de `prefers-reduced-motion`
 
-- 🔍 City search with auto-complete
-- 📡 Real-time weather data (in French)
-- 🧩 Modular component structure (after full `WeatherInfo.vue` refactor)
-- 🧼 Clean UI powered by Tailwind CSS
-- 📱 Fully responsive layout
+## Aperçu
 
-## 🛠 Recommended IDE Setup
+Rome affichée dans les deux thèmes disponibles :
 
-- [VS Code](https://code.visualstudio.com/)
-- Extension: [Vue - Official](https://marketplace.visualstudio.com/items?itemName=Vue.volar)
-- Disable: Vetur (if installed)
+| Mode sombre | Mode clair |
+| --- | --- |
+| ![ViteMétéo en mode sombre avec Rome](src/assets/rome-dark.png) | ![ViteMétéo en mode clair avec Rome](src/assets/rome-light.png) |
 
-## 🖼️ UI Preview
-
-![Full Size Screenshot](src/assets/fullsize.png)
-
-## 🚀 Project Setup
-
-Install dependencies:
+## Développement
 
 ```bash
 npm install
-```
-
-Run development server:
-
-```bash
 npm run dev
 ```
 
-Build for production:
+Créer un build de production :
 
 ```bash
 npm run build
+npm run preview
 ```
 
-## 🔐 Environment Variables
+Aucune variable d’environnement n’est requise. `.env.example` documente l’emplacement réservé à une future intégration nécessitant une clé.
 
-Create a `.env` file with the following:
+## Données et attribution
 
-```env
-VITE_WEATHER_API_KEY=your_api_key_here
-```
+Les prévisions et le géocodage sont fournis par Open-Meteo. L’application affiche un lien d’attribution dans le pied de page. Open-Meteo est une excellente option gratuite et sans clé pour un projet personnel ; vérifiez ses conditions d’utilisation et ses exigences d’attribution avant un déploiement commercial.
 
-> ✅ You can get your key from [weatherapi.com](https://www.weatherapi.com).  
-> 🌍 The app uses French (`lang=fr`) for all descriptions.
+## Structure
 
-## 🌐 Deployment (e.g. Netlify)
-
-For static hosting, add the environment variable to your build config:
-
-```bash
-# Netlify → Site Settings → Environment Variables
-VITE_WEATHER_API_KEY=your_api_key
+```text
+src/
+├── components/       # Recherche, météo actuelle et blocs de prévisions
+├── services/weather.js # Appels Open-Meteo + normalisation des données
+└── utils/             # Formatage localisé et messages FR/EN/ZH
 ```

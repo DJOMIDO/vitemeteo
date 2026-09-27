@@ -1,21 +1,13 @@
 <script setup>
-defineProps({
-    astro: Object
-})
+import { formatTime } from "../utils/format"
+import { useI18n } from "../utils/i18n"
+defineProps({ day: Object })
+const { t, locale } = useI18n()
 </script>
 
 <template>
-    <div class="flex items-center gap-4 mb-8 text-lg">
-        <!-- Sunrise -->
-        <div class="flex items-center gap-2">
-            <i class="fa fa-sun text-yellow-400"></i>
-            <span>Lever du soleil : {{ astro.sunrise }}</span>
-        </div>
-
-        <!-- Sunset -->
-        <div class="flex items-center gap-2">
-            <i class="fa fa-moon text-indigo-300"></i>
-            <span>Coucher du soleil : {{ astro.sunset }}</span>
-        </div>
-    </div>
+  <div class="sun-times">
+    <div><span aria-hidden="true">↑</span><span>{{ t("sunrise") }} <strong>{{ formatTime(day.sunrise, locale) }}</strong></span></div>
+    <div><span aria-hidden="true">↓</span><span>{{ t("sunset") }} <strong>{{ formatTime(day.sunset, locale) }}</strong></span></div>
+  </div>
 </template>

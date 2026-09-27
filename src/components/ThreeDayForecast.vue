@@ -1,34 +1,22 @@
 <script setup>
-defineProps({
-    days: Array
-})
+import { getCondition } from "../services/weather"
+import { formatDate, formatTemperature } from "../utils/format"
+import { useI18n } from "../utils/i18n"
+defineProps({ days: Array, unit: String })
+const { t, locale } = useI18n()
 </script>
 
 <template>
-    <div class="max-w-screen-md w-full mx-auto px-6">
-        <div class=" text-white text-center">
-            <h2 class="mb-4 text-2xl font-semibold">Prévisions sur 3 jours</h2>
-            <div class="grid sm:grid-cols-3 md:grid-cols-3 gap-4 mx-auto">
-                <div v-for="(day, index) in days" :key="index"
-                    class="flex flex-col items-center p-4 bg-weather-primary rounded-md">
-                    <!-- Date -->
-                    <p class="text-lg font-bold">
-                        {{ new Date(day.date).toLocaleDateString("fr", {
-                            weekday: 'short',
-                            day: 'numeric',
-                            month: 'short'
-                        }) }}
-                    </p>
-                    <!-- Icon -->
-                    <img class="w-auto h-[50px] object-cover" :src="day.day.condition.icon" alt="icon" />
-                    <!-- Temp -->
-                    <p class="text-md">
-                        {{ Math.round(day.day.maxtemp_c) }}&deg; / {{ Math.round(day.day.mintemp_c) }}&deg;
-                    </p>
-                    <!-- Description -->
-                    <p class="text-sm">{{ day.day.condition.text }}</p>
-                </div>
-            </div>
-        </div>
+  <section class="forecast-section" aria-labelledby="daily-title">
+    <div class="section-heading"><h2 id="daily-title">{{ t("tenDays") }}</h2><span>{{ t("longTerm") }}</span></div>
+    <div class="daily-grid">
+      <div v-for="(day, index) in days" :key="day.date" class="day-item">
+        <p>{{ index === 0 ? t("today") : formatDate(day.date, {}, locale) }}</p>
+        <span class="day-icon" role="img" :aria-label="getCondition(day.code, locale).label">{{ getCondition(day.code, locale).icon }}</span>
+        <strong>{{ formatTemperature(day.max, unit) }} <em>{{ formatTemperature(day.min, unit) }}</em></strong>
+        <span>{{ getCondition(day.code, locale).label }}</span>
+        <small v-if="day.precipitationProbability">💧 {{ day.precipitationProbability }}%</small>
+      </div>
     </div>
+  </section>
 </template>
