@@ -62,6 +62,10 @@ const refreshPlace = async (place) => {
 }
 
 const locateUser = () => {
+  if (!window.isSecureContext && window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
+    error.value = t("secureLocation")
+    return
+  }
   if (!navigator.geolocation) {
     error.value = locale.value === "zh" ? "此浏览器不支持定位。" : locale.value === "en" ? "Geolocation is not available in this browser." : "La géolocalisation n’est pas disponible dans ce navigateur."
     return
@@ -78,10 +82,14 @@ const locateUser = () => {
     } finally {
       loading.value = false
     }
-  }, () => {
-    error.value = locale.value === "zh" ? "请允许定位，以显示你附近的天气。" : locale.value === "en" ? "Allow location access to show nearby weather." : "Autorise la localisation pour afficher la météo autour de toi."
+  }, (locationError) => {
+    error.value = locationError.code === 1
+      ? t("locationDenied")
+      : locationError.code === 2
+        ? t("locationUnavailable")
+        : t("locationTimeout")
     loading.value = false
-  })
+  }, { enableHighAccuracy: false, timeout: 15000, maximumAge: 300000 })
 }
 
 const changeUnit = (nextUnit) => {
