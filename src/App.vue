@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted, provide, ref, watch } from "vue"
+import { computed, onBeforeUnmount, onMounted, provide, ref, watch } from "vue"
 import Nav from "./components/Nav.vue"
 import WeatherInfo from "./components/WeatherInfo.vue"
 import { getWeather, getWeatherByCoordinates } from "./services/weather"
@@ -13,6 +13,7 @@ const notice = ref("")
 const theme = ref(localStorage.getItem("vitemeteo-theme") || "dark")
 const locale = ref(localStorage.getItem("vitemeteo-locale") || "fr")
 const activePlaceId = ref(null)
+const online = ref(navigator.onLine)
 const t = (key) => messages[locale.value][key] || messages.fr[key] || key
 provide("locale", locale)
 provide("t", t)
@@ -97,8 +98,17 @@ const changeUnit = (nextUnit) => {
   localStorage.setItem("vitemeteo-unit", nextUnit)
 }
 
+const updateOnlineStatus = () => { online.value = navigator.onLine }
+const themeColors = { dark: "#10131c", light: "#f2f6fb" }
+const applyTheme = (value) => {
+  document.documentElement.classList.toggle("theme-light", value === "light")
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", themeColors[value] || themeColors.dark)
+}
+
 onMounted(async () => {
-  document.documentElement.classList.toggle("theme-light", theme.value === "light")
+  window.addEventListener("online", updateOnlineStatus)
+  window.addEventListener("offline", updateOnlineStatus)
+  applyTheme(theme.value)
   document.documentElement.lang = locale.value
   const savedPlaces = JSON.parse(localStorage.getItem("vitemeteo-places") || "[]")
   if (savedPlaces.length) {
@@ -116,8 +126,13 @@ onMounted(async () => {
   }
 })
 
+onBeforeUnmount(() => {
+  window.removeEventListener("online", updateOnlineStatus)
+  window.removeEventListener("offline", updateOnlineStatus)
+})
+
 watch(theme, (value) => {
-  document.documentElement.classList.toggle("theme-light", value === "light")
+  applyTheme(value)
   localStorage.setItem("vitemeteo-theme", value)
 })
 watch(locale, (value) => {
@@ -137,6 +152,7 @@ const cycleLocale = () => {
     <main id="main-content" class="app-main">
       <div v-if="error" class="status-message error-message" role="alert">{{ error }}</div>
       <div v-if="notice" class="status-message" aria-live="polite">{{ notice }}</div>
+      <div v-if="!online" class="status-message" role="status">{{ t("offline") }}</div>
       <section v-if="!hasPlaces && !loading" class="empty-state" aria-labelledby="empty-title">
         <span class="empty-icon" aria-hidden="true">☀️</span>
         <h1 id="empty-title">{{ t("emptyTitle") }}</h1>
