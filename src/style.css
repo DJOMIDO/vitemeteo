@@ -11,7 +11,7 @@ button, input { font: inherit; }
 button { cursor: pointer; }
 a { color: inherit; }
 .app-shell { min-height: 100vh; }
-.app-header { position: sticky; top: 0; z-index: 10; border-bottom: 1px solid #31394b; background: rgba(16, 19, 28, .88); backdrop-filter: blur(18px); }
+.app-header { position: sticky; top: 0; z-index: 10; padding-top: env(safe-area-inset-top, 0px); border-bottom: 1px solid #31394b; background: rgba(16, 19, 28, .88); backdrop-filter: blur(18px); }
 .header-inner, .app-main, .app-footer { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 .header-inner { position: relative; min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .brand { display: flex; align-items: center; gap: 10px; font: 700 1.45rem "Sora", sans-serif; text-decoration: none; letter-spacing: -.04em; }
@@ -108,7 +108,7 @@ h1, h2 { font-family: "Sora", sans-serif; }
 .error-message { color: #ffd4d4; background: #5c2c38; }
 .loading-state { margin-top: 32px; text-align: center; background: #1b2c49; }
 .updated-at { margin: 22px 0 0; padding: 0 2px; text-align: right; }
-.app-footer { display: flex; align-items: center; justify-content: space-between; padding: 22px 0 30px; color: #8995aa; font-size: .8rem; }
+.app-footer { display: flex; align-items: center; justify-content: space-between; padding: 22px 0 calc(30px + env(safe-area-inset-bottom, 0px)); color: #8995aa; font-size: .8rem; }
 .app-footer a { color: #a9c7ff; }
 .unit-switch { display: flex; padding: 3px; border-radius: 8px; background: #202838; }
 .unit-switch button { padding: 5px 9px; border: 0; border-radius: 6px; color: #8f9db4; background: transparent; font-size: .75rem; }

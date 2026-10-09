@@ -16,6 +16,7 @@ Une application météo Vue 3 pensée pour consulter plusieurs villes rapidement
 - Vue multi-villes : la ville active reste détaillée, les autres deviennent des cartes compactes cliquables
 - États de chargement, d’erreur, de recherche vide et de première visite
 - Interface responsive, contraste renforcé et prise en charge de `prefers-reduced-motion`
+- Installable comme application (PWA) : mise à jour automatique et accès hors ligne aux dernières prévisions consultées
 
 ## Aperçu
 
@@ -37,6 +38,14 @@ Créer un build de production :
 ```bash
 npm run build
 npm run preview
+```
+
+Le service worker n’est généré qu’au build : utilisez `npm run build && npm run preview` pour tester l’installation et le mode hors ligne.
+
+Les icônes de l’application sont générées à partir de `public/logo.svg` :
+
+```bash
+npm run generate-pwa-assets
 ```
 
 Aucune variable d’environnement n’est requise. `.env.example` documente l’emplacement réservé à une future intégration nécessitant une clé.

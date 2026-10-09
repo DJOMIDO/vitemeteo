@@ -16,6 +16,7 @@ export const messages = {
     units: "Unité de température", previous: "Afficher les heures précédentes", next: "Afficher les heures suivantes",
     celsius: "Celsius", fahrenheit: "Fahrenheit", themeLight: "Activer le mode clair", themeDark: "Activer le mode sombre",
     language: "Changer de langue",         restoredError: "Impossible de restaurer les villes enregistrées.", secureLocation: "La localisation mobile nécessite une connexion HTTPS. Ouvre l’application depuis une adresse HTTPS ou autorise la localisation dans les réglages du navigateur.", locationDenied: "La localisation est refusée. Autorise-la pour ce site dans Réglages iPhone > Confidentialité et sécurité > Service de localisation, puis dans les réglages de Safari.", locationTimeout: "La localisation n’a pas répondu à temps. Vérifie que le service de localisation est activé et réessaie.", locationUnavailable: "La position est temporairement indisponible. Vérifie le signal GPS et réessaie.",
+    offline: "Hors ligne : affichage des dernières données enregistrées.",
   },
   en: {
     search: "Search for a city…", locate: "Use my location", results: "Search results",
@@ -30,6 +31,7 @@ export const messages = {
     previous: "Show previous hours", next: "Show next hours", celsius: "Celsius", fahrenheit: "Fahrenheit",
     themeLight: "Enable light mode", themeDark: "Enable dark mode", language: "Change language",
     restoredError: "Unable to restore saved cities.", secureLocation: "Mobile location requires an HTTPS connection. Open the app from an HTTPS address or allow location access in your browser settings.", locationDenied: "Location access was denied. Allow it for this site in iPhone Settings > Privacy & Security > Location Services, then in Safari settings.", locationTimeout: "Location did not respond in time. Check that location services are enabled and try again.", locationUnavailable: "Your location is temporarily unavailable. Check the GPS signal and try again.",
+    offline: "Offline: showing the last saved data.",
   },
   zh: {
     search: "搜索城市…", locate: "使用我的位置", results: "搜索结果",
@@ -44,6 +46,7 @@ export const messages = {
     previous: "显示前几个小时", next: "显示后几个小时", celsius: "摄氏度", fahrenheit: "华氏度",
     themeLight: "切换到明亮模式", themeDark: "切换到暗黑模式", language: "切换语言",
     restoredError: "无法恢复已保存的城市。", secureLocation: "手机定位需要 HTTPS 安全连接。请通过 HTTPS 地址打开应用，或在浏览器设置中允许定位。", locationDenied: "定位权限被拒绝。请在 iPhone 设置 > 隐私与安全性 > 定位服务中允许定位，并在 Safari 设置中允许此网站定位。", locationTimeout: "定位请求超时。请确认定位服务已开启后重试。", locationUnavailable: "当前位置暂时不可用。请检查 GPS 信号后重试。",
+    offline: "当前离线，显示最近缓存的数据。",
   },
 }
 
