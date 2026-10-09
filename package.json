@@ -12,6 +12,9 @@
   "dependencies": {
     "vue": "^3.4.21"
   },
+  "engines": {
+    "node": ">=20.19.0"
+  },
   "devDependencies": {
     "@vite-pwa/assets-generator": "^2.0.0",
     "@vitejs/plugin-vue": "^5.0.4",
