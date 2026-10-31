@@ -154,7 +154,12 @@ const cycleLocale = () => {
       <div v-if="notice" class="status-message" aria-live="polite">{{ notice }}</div>
       <div v-if="!online" class="status-message" role="status">{{ t("offline") }}</div>
       <section v-if="!hasPlaces && !loading" class="empty-state" aria-labelledby="empty-title">
-        <span class="empty-icon" aria-hidden="true">☀️</span>
+        <svg class="empty-illustration" viewBox="0 0 220 140" aria-hidden="true">
+          <circle class="empty-sun" cx="153" cy="47" r="25" />
+          <path class="empty-ray" d="M153 9v12M153 73v12M115 47h12M179 47h12M126 20l9 9M171 65l9 9M180 20l-9 9M135 65l-9 9" />
+          <path class="empty-cloud" d="M47 98h113a22 22 0 0 0 2-44 36 36 0 0 0-68-8 27 27 0 0 0-47 20 16 16 0 0 0 0 32Z" />
+          <path class="empty-ground" d="M35 113h150" />
+        </svg>
         <h1 id="empty-title">{{ t("emptyTitle") }}</h1>
         <p>{{ t("emptyText") }}</p>
         <button class="button button-primary" type="button" @click="locateUser">{{ t("useLocation") }}</button>
