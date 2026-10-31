@@ -58,24 +58,30 @@ a { color: inherit; }
 .icon-button { width: 36px; height: 36px; border-radius: 10px; font-size: 1.4rem; }
 .icon-button:hover, .icon-button:focus-visible { color: #f4f6fb; background: #30394c; outline: 2px solid #93b8ff; outline-offset: 2px; }
 .icon-button.danger:hover { color: #ff9e9e; }
-.current-weather { display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 32px 28px 36px; }
+.current-weather { position: relative; display: flex; align-items: center; justify-content: space-between; gap: 30px; padding: 32px 28px 36px; }
 h1, h2, p { margin-top: 0; }
 h1, h2 { font-family: "Sora", sans-serif; }
 .current-weather h1 { margin: 4px 0; font-size: clamp(2.2rem, 6vw, 4rem); letter-spacing: -.07em; }
+.city-heading { display: flex; align-items: center; gap: 16px; width: 100%; }
+.city-heading .unit-switch { display: none; flex: 0 0 auto; }
+.desktop-unit-switch { display: flex; }
 .location-line { margin: 0; color: #a9b5c9; }
 .current-reading { display: flex; align-items: center; gap: 20px; }
 .weather-icon { font-size: clamp(4rem, 8vw, 6.2rem); line-height: 1; }
 .current-reading strong { font: 600 clamp(3.4rem, 8vw, 5.8rem) "Sora", sans-serif; letter-spacing: -.1em; }
 .current-reading p { margin: 2px 0 0; color: #cbd4e3; }
 .weather-details { padding: 0 28px 28px; }
-.metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 16px; border: 1px solid #323e53; border-radius: 18px; background: #202838; }
+.metrics { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; padding: 16px; border: 1px solid #323e53; border-radius: 18px; background: #202838; }
 .metrics div { display: grid; gap: 5px; }
+.metric-icon { display: inline-block; width: 1em; height: 1em; margin: 0 4px -2px 0; fill: none; stroke: #9bc2ff; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.8; vertical-align: baseline; }
 .metrics span, .sun-times span { color: #9ca8bc; font-size: .83rem; }
 .metrics strong { color: #f4f6fb; font-size: 1rem; }
-.sun-times { display: flex; gap: 30px; padding: 22px 5px 30px; }
-.sun-times div { display: flex; align-items: center; gap: 10px; }
-.sun-times div > span:first-child { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 9px; color: #9bc2ff; background: #334361; font-size: 1.2rem; }
-.sun-times span strong { display: block; margin-top: 3px; color: #eef3fb; }
+.metrics + .forecast-section { margin-top: 24px; }
+.sun-times { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; padding: 16px 5px 20px; }
+.sun-times div { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.sun-times div > span:first-child { display: grid; flex: 0 0 28px; place-items: center; width: 28px; height: 28px; border-radius: 8px; color: #9bc2ff; background: #334361; font-size: 1.05rem; }
+.sun-times span { min-width: 0; }
+.sun-times span strong { display: block; margin-top: 2px; color: #eef3fb; }
 .forecast-section { min-width: 0; border-top: 1px solid #30394c; padding-top: 24px; }
 .section-heading { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; }
 .section-heading h2 { margin: 0; font-size: 1.15rem; }
@@ -121,6 +127,10 @@ h1, h2 { font-family: "Sora", sans-serif; }
   .search-area { grid-column: 1 / -1; grid-row: 2; width: 100%; }
   .header-actions { position: static; grid-column: 2; grid-row: 1; }
   .current-weather { align-items: flex-start; flex-direction: column; }
+  .current-weather > div:first-child { width: 100%; }
+  .city-heading { justify-content: space-between; gap: 10px; }
+  .city-heading .unit-switch { display: flex; }
+  .desktop-unit-switch { display: none; }
   .current-reading { align-self: center; }
   .metrics { grid-template-columns: repeat(2, 1fr); }
   .daily-grid { grid-template-columns: repeat(2, 1fr); }
