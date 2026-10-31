@@ -1,4 +1,5 @@
 const GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
+const REVERSE_GEOCODING_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client"
 const FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 
 const conditions = {
@@ -128,10 +129,36 @@ export const getWeather = async (place, signal) => {
 }
 
 export const getWeatherByCoordinates = async (latitude, longitude, signal, language = "fr") => {
-  const places = await searchCities(`${latitude},${longitude}`, signal, language)
-  const place = places[0] || {
+  let place
+  try {
+    const params = new URLSearchParams({
+      latitude,
+      longitude,
+      localityLanguage: language,
+    })
+    const data = await requestJson(`${REVERSE_GEOCODING_URL}?${params}`, signal)
+    const name = data.city || data.locality || data.principalSubdivision || ""
+    const region = data.principalSubdivision && data.principalSubdivision !== name
+      ? data.principalSubdivision
+      : ""
+    const country = data.countryName || ""
+    if (name) {
+      place = {
+        id: `${latitude}:${longitude}`,
+        name,
+        region,
+        country,
+        latitude,
+        longitude,
+        timezone: data.localityInfo?.informative?.find((item) => item.description === "timezone")?.name,
+      }
+    }
+  } catch (error) {
+    if (error.name === "AbortError") throw error
+  }
+  place ||= {
     id: `${latitude}:${longitude}`,
-    name: "Ma position",
+    name: language === "en" ? "Current location" : language === "zh" ? "当前位置" : "Position actuelle",
     region: "",
     country: "",
     latitude,
