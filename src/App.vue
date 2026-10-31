@@ -169,16 +169,10 @@ const cycleLocale = () => {
           @select-place="activePlaceId = $event"
           @remove-place="removePlace"
           @refresh="refreshPlace"
+          @change-unit="changeUnit"
         />
       </div>
       <div v-if="loading" class="loading-state" aria-live="polite">{{ t("loading") }}</div>
     </main>
-    <footer class="app-footer">
-      <span>{{ t("provider") }} <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></span>
-      <div class="unit-switch" role="group" :aria-label="t('units')">
-        <button type="button" :class="{ active: unit === 'C' }" @click="changeUnit('C')">°C</button>
-        <button type="button" :class="{ active: unit === 'F' }" @click="changeUnit('F')">°F</button>
-      </div>
-    </footer>
   </div>
 </template>

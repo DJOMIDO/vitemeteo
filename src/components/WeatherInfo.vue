@@ -8,7 +8,7 @@ import { getCondition } from "../services/weather"
 import { formatTemperature } from "../utils/format"
 
 defineProps({ place: Object, unit: String, compact: Boolean })
-const emit = defineEmits(["remove-place", "refresh", "select-place"])
+const emit = defineEmits(["remove-place", "refresh", "select-place", "change-unit"])
 const { t, locale } = useI18n()
 </script>
 
@@ -27,6 +27,10 @@ const { t, locale } = useI18n()
     <div class="card-toolbar">
       <span class="live-label"><i aria-hidden="true"></i> {{ t("localForecast") }}</span>
       <div class="card-actions">
+        <div class="unit-switch" role="group" :aria-label="t('units')">
+          <button type="button" :class="{ active: unit === 'C' }" @click="emit('change-unit', 'C')">°C</button>
+          <button type="button" :class="{ active: unit === 'F' }" @click="emit('change-unit', 'F')">°F</button>
+        </div>
         <button type="button" class="icon-button" :aria-label="`${t('refresh')} ${place.location.name}`" @click="emit('refresh', place)">↻</button>
         <button type="button" class="icon-button danger" :aria-label="`${t('remove')} ${place.location.name}`" @click="emit('remove-place', place.location.id)">×</button>
       </div>
@@ -42,7 +46,7 @@ const { t, locale } = useI18n()
       <SunriseSunset :day="place.daily[0]" />
       <HourlyForecast :hours="place.hourly" :unit="unit" />
       <ThreeDayForecast :days="place.daily" :unit="unit" />
-      <p class="updated-at">{{ t("updated") }} {{ new Intl.DateTimeFormat(locale === "en" ? "en-GB" : locale === "zh" ? "zh-CN" : "fr-FR", { hour: "2-digit", minute: "2-digit" }).format(new Date(place.updatedAt)) }}</p>
+      <p class="data-source">{{ t("provider") }} <a href="https://open-meteo.com/" target="_blank" rel="noreferrer">Open-Meteo</a></p>
     </div>
     </template>
   </article>

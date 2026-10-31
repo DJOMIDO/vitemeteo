@@ -48,7 +48,6 @@ const selectPlace = (place) => {
       <div class="search-area">
         <form class="search-form" role="search" @submit.prevent>
           <label class="sr-only" for="city-search">{{ t("search") }}</label>
-          <span aria-hidden="true">⌕</span>
           <input id="city-search" v-model="query" name="city" type="search" autocomplete="off" :placeholder="t('search')" />
           <button class="location-button" type="button" :aria-label="t('locate')" @click="emit('locate')">◎</button>
         </form>

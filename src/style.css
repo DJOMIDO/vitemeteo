@@ -13,12 +13,12 @@ a { color: inherit; }
 #app, .app-shell { min-height: 100vh; min-height: 100dvh; }
 .app-shell { display: flex; flex-direction: column; }
 .app-header { position: sticky; top: 0; z-index: 10; padding-top: env(safe-area-inset-top, 0px); border-bottom: 1px solid #31394b; background: rgba(16, 19, 28, .88); backdrop-filter: blur(18px); }
-.header-inner, .app-main, .app-footer { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
+.header-inner, .app-main { width: min(1120px, calc(100% - 40px)); margin: 0 auto; }
 .header-inner { position: relative; min-height: 88px; display: flex; align-items: center; justify-content: space-between; gap: 32px; }
 .brand { display: flex; flex: 0 0 auto; align-items: center; gap: 10px; width: fit-content; font: 700 1.45rem "Sora", sans-serif; text-decoration: none; letter-spacing: -.04em; }
 .brand > span:last-child span { color: #93b8ff; }
 .search-area { position: relative; width: min(390px, 100%); }
-.search-form { display: flex; align-items: center; gap: 10px; padding: 0 10px 0 15px; border: 1px solid #3a465d; border-radius: 14px; color: #93b8ff; background: #1c2230; }
+.search-form { display: flex; align-items: center; gap: 10px; padding: 0 10px; border: 1px solid #3a465d; border-radius: 14px; color: #93b8ff; background: #1c2230; }
 .search-form:focus-within { border-color: #93b8ff; box-shadow: 0 0 0 3px #93b8ff33; }
 .search-form input { width: 100%; min-width: 0; padding: 13px 0; border: 0; outline: 0; color: #f4f6fb; background: transparent; }
 .search-form input::placeholder { color: #8590a6; }
@@ -51,9 +51,10 @@ a { color: inherit; }
 .compact-chevron { color: #93b8ff; font-size: 1.3rem; }
 .card-toolbar { display: flex; align-items: center; justify-content: space-between; padding: 20px 28px 0; }
 .live-label, .eyebrow, .section-heading span { color: #93b8ff; font-size: .73rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.eyebrow { display: flex; flex-wrap: wrap; gap: 6px; }
 .live-label { display: flex; align-items: center; gap: 8px; }
 .live-label i { width: 7px; height: 7px; border-radius: 50%; background: #65d7a0; }
-.card-actions { display: flex; gap: 5px; }
+.card-actions { display: flex; align-items: center; gap: 5px; }
 .icon-button { width: 36px; height: 36px; border-radius: 10px; font-size: 1.4rem; }
 .icon-button:hover, .icon-button:focus-visible { color: #f4f6fb; background: #30394c; outline: 2px solid #93b8ff; outline-offset: 2px; }
 .icon-button.danger:hover { color: #ff9e9e; }
@@ -69,7 +70,7 @@ h1, h2 { font-family: "Sora", sans-serif; }
 .weather-details { padding: 0 28px 28px; }
 .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; padding: 16px; border: 1px solid #323e53; border-radius: 18px; background: #202838; }
 .metrics div { display: grid; gap: 5px; }
-.metrics span, .sun-times span, .updated-at { color: #9ca8bc; font-size: .83rem; }
+.metrics span, .sun-times span { color: #9ca8bc; font-size: .83rem; }
 .metrics strong { color: #f4f6fb; font-size: 1rem; }
 .sun-times { display: flex; gap: 30px; padding: 22px 5px 30px; }
 .sun-times div { display: flex; align-items: center; gap: 10px; }
@@ -108,9 +109,8 @@ h1, h2 { font-family: "Sora", sans-serif; }
 .status-message, .loading-state { margin-bottom: 18px; padding: 14px 17px; border-radius: 12px; color: #d7e5ff; background: #253a5d; }
 .error-message { color: #ffd4d4; background: #5c2c38; }
 .loading-state { margin-top: 32px; text-align: center; background: #1b2c49; }
-.updated-at { margin: 22px 0 0; padding: 0 2px; text-align: right; }
-.app-footer { display: flex; align-items: center; justify-content: space-between; padding: 22px 0 calc(30px + env(safe-area-inset-bottom, 0px)); color: #8995aa; font-size: .8rem; }
-.app-footer a { color: #a9c7ff; }
+.data-source { margin: 20px 0 0; padding: 0 2px; color: #8995aa; font-size: .8rem; text-align: right; }
+.data-source a { color: #a9c7ff; }
 .unit-switch { display: flex; padding: 3px; border-radius: 8px; background: #202838; }
 .unit-switch button { padding: 5px 9px; border: 0; border-radius: 6px; color: #8f9db4; background: transparent; font-size: .75rem; }
 .unit-switch button.active { color: #15213a; background: #9bc2ff; }
@@ -139,14 +139,14 @@ html.theme-light .search-results button:hover, html.theme-light .search-results 
 html.theme-light .weather-card:hover { border-color: #93b8ff; box-shadow: 0 26px 60px #6680a333; }
 html.theme-light .compact-summary { color: #1d2a3e; }
 html.theme-light .compact-summary:hover, html.theme-light .compact-summary:focus-visible { background: #edf3fc; }
-html.theme-light .location-line, html.theme-light .metrics span, html.theme-light .sun-times span, html.theme-light .updated-at, html.theme-light .hour-label, html.theme-light .hour-item small, html.theme-light .day-item > span:not(.day-icon), html.theme-light .day-item small, html.theme-light .empty-state p, html.theme-light .search-status { color: #65758e; }
+html.theme-light .location-line, html.theme-light .metrics span, html.theme-light .sun-times span, html.theme-light .hour-label, html.theme-light .hour-item small, html.theme-light .day-item > span:not(.day-icon), html.theme-light .day-item small, html.theme-light .empty-state p, html.theme-light .search-status { color: #65758e; }
 html.theme-light .metrics, html.theme-light .hour-item, html.theme-light .day-item { border-color: #d6e0ed; color: #1d2a3e; background: #f1f5fb; }
 html.theme-light .hour-item:hover, html.theme-light .hour-item:focus-visible, html.theme-light .hour-item.selected, html.theme-light .day-item:hover { border-color: #93b8ff; background: #e3edfc; }
 html.theme-light .forecast-section { border-color: #dce4ef; }
 html.theme-light .sun-times div > span:first-child { color: #41679d; background: #e3edfc; }
 html.theme-light .current-reading p, html.theme-light .metrics strong, html.theme-light .sun-times span strong { color: #314765; }
 html.theme-light .section-heading span, html.theme-light .eyebrow, html.theme-light .live-label { color: #41679d; }
-html.theme-light .app-footer { color: #65758e; }
+html.theme-light .data-source { color: #65758e; }
 html.theme-light .unit-switch { background: #e1e9f4; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
