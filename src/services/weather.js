@@ -172,7 +172,7 @@ export const getWeatherByCoordinates = async (latitude, longitude, signal, langu
     const params = new URLSearchParams({
       latitude,
       longitude,
-      localityLanguage: language,
+      localityLanguage: language === "zh" ? "zh-Hans" : language,
     })
     const data = await requestJson(`${REVERSE_GEOCODING_URL}?${params}`, signal)
     const name = data.city || data.locality || data.principalSubdivision || ""
