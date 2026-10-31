@@ -149,7 +149,7 @@ const cycleLocale = () => {
 <template>
   <div class="app-shell">
     <Nav :loading="loading" :theme="theme" :locale="locale" @place-data="addPlace" @locate="locateUser" @toggle-theme="toggleTheme" @cycle-locale="cycleLocale" />
-    <main id="main-content" class="app-main">
+    <main id="main-content" class="app-main" :class="{ 'is-empty': !hasPlaces && !loading }">
       <div v-if="error" class="status-message error-message" role="alert">{{ error }}</div>
       <div v-if="notice" class="status-message" aria-live="polite">{{ notice }}</div>
       <div v-if="!online" class="status-message" role="status">{{ t("offline") }}</div>
