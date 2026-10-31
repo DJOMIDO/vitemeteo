@@ -1,4 +1,5 @@
 const GEOCODING_URL = "https://geocoding-api.open-meteo.com/v1/search"
+const CITY_SEARCH_URL = "https://nominatim.openstreetmap.org/search"
 const REVERSE_GEOCODING_URL = "https://api.bigdatacloud.net/data/reverse-geocode-client"
 const FORECAST_URL = "https://api.open-meteo.com/v1/forecast"
 
@@ -66,17 +67,54 @@ export const getCondition = (code, locale = "fr") => {
 }
 
 export const searchCities = async (query, signal, language = "fr") => {
-  const params = new URLSearchParams({ name: query, count: "6", language, format: "json" })
-  const data = await requestJson(`${GEOCODING_URL}?${params}`, signal)
-  return (data.results || []).map((place) => ({
-    id: `${place.latitude}:${place.longitude}`,
-    name: place.name,
-    region: place.admin1 || "",
-    country: place.country || "",
-    latitude: place.latitude,
-    longitude: place.longitude,
-    timezone: place.timezone,
-  }))
+  const params = new URLSearchParams({
+    q: query,
+    format: "jsonv2",
+    addressdetails: "1",
+    limit: "8",
+    featuretype: "city",
+    "accept-language": language,
+  })
+  try {
+    const data = await requestJson(`${CITY_SEARCH_URL}?${params}`, signal)
+    const places = data
+      .filter((place) => ["city", "town", "village", "municipality", "administrative"].includes(place.type))
+      .map((place) => {
+        const address = place.address || {}
+        const name = address.city || address.town || address.municipality || address.village || place.name
+        const localized = (value) => (value || "").split(";")[0]
+        return {
+          id: `${place.lat}:${place.lon}`,
+          name,
+          region: localized(address.state),
+          country: localized(address.country),
+          latitude: Number(place.lat),
+          longitude: Number(place.lon),
+          timezone: "",
+        }
+      })
+    return places.filter((place, index) =>
+      places.findIndex((item) => item.name === place.name && item.country === place.country) === index,
+    )
+  } catch (error) {
+    if (error.name === "AbortError") throw error
+    const fallbackParams = new URLSearchParams({ name: query, count: "10", language, format: "json" })
+    const data = await requestJson(`${GEOCODING_URL}?${fallbackParams}`, signal)
+    const results = data.results || []
+    const qualityResults = results.filter((place) =>
+      place.population > 0 || ["PPLC", "PPLA", "PPLA2", "PPLA3", "PPLA4"].includes(place.feature_code),
+    )
+    const usableResults = qualityResults.length ? qualityResults : results
+    return usableResults.slice(0, 6).map((place) => ({
+      id: `${place.latitude}:${place.longitude}`,
+      name: place.name,
+      region: place.admin1 || "",
+      country: place.country || "",
+      latitude: place.latitude,
+      longitude: place.longitude,
+      timezone: place.timezone,
+    }))
+  }
 }
 
 export const getWeather = async (place, signal) => {
