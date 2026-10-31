@@ -43,7 +43,12 @@ const selectPlace = (place) => {
   <header class="app-header">
     <nav class="header-inner" :aria-label="t('nav')">
       <a class="brand" href="/" aria-label="ViteMétéo, accueil">
-        <span class="brand-mark" aria-hidden="true">☼</span>
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" role="presentation">
+            <circle cx="12" cy="12" r="4.25" />
+            <path d="M12 2v2.25M12 19.75V22M2 12h2.25M19.75 12H22M4.93 4.93l1.59 1.59M17.48 17.48l1.59 1.59M19.07 4.93l-1.59 1.59M6.52 17.48l-1.59 1.59" />
+          </svg>
+        </span>
         <span>Vite<span>Météo</span></span>
       </a>
       <div class="search-area">
