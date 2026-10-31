@@ -73,7 +73,7 @@ export const searchCities = async (query, signal, language = "fr") => {
     addressdetails: "1",
     limit: "8",
     featuretype: "city",
-    "accept-language": language,
+    "accept-language": language === "zh" ? "zh-Hans" : language,
   })
   try {
     const data = await requestJson(`${CITY_SEARCH_URL}?${params}`, signal)
